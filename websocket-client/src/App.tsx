@@ -1,10 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import useWebSocket from "react-use-websocket";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const websocketUrl = import.meta.env.VITE_WEB_SOCKET_URL;
+  const helloSocketUrl = `${websocketUrl}/hello-ws`;
+
+  const { sendMessage, lastMessage, readyState } = useWebSocket(
+    helloSocketUrl,
+    { shouldReconnect: () => true }
+  );
+
+  console.log({ lastMessage, readyState });
+
+  const handleSendMessage = () => {
+    console.log("entry function send message");
+    sendMessage("This is message from client");
+  };
 
   return (
     <>
@@ -16,20 +29,20 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>PoC WebSocket</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          <strong>Status:</strong>{" "}
+          {readyState === 1 ? "Connected ✅" : "Disconnected ❌"}
         </p>
+        <button onClick={handleSendMessage}>Send message</button>
+        <p>{lastMessage ? lastMessage.data : "Not have a message"}</p>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
