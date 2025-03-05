@@ -1,19 +1,15 @@
-package com.poc.websocket.HelloWorld;
+package com.poc.websocket.WebSocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.poc.websocket.HelloWorld.HelloWorld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.List;
-
-public class HelloService extends TextWebSocketHandler {
-    Logger logger = LoggerFactory.getLogger(HelloService.class);
+public class HelloWebSocketService extends TextWebSocketHandler {
+    Logger logger = LoggerFactory.getLogger(HelloWebSocketService.class);
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
