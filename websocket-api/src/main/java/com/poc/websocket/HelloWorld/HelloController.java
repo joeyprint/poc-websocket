@@ -11,7 +11,6 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @Configuration
 @EnableWebSocket
 @RestController
-@CrossOrigin
 public class HelloController implements WebSocketConfigurer {
     @GetMapping("/")
     public String index() {
@@ -20,6 +19,6 @@ public class HelloController implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new HelloService(), "/hello-ws");
+        registry.addHandler(new HelloService(), "/hello-ws").setAllowedOrigins("*");
     }
 }
