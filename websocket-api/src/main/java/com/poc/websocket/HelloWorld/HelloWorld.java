@@ -1,17 +1,16 @@
 package com.poc.websocket.HelloWorld;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 public class HelloWorld {
+    @JsonProperty("message")
     private String message;
-    private List<Content> content;
-
-    @Data
-    public static class Content {
-        private String key;
-        private String value;
-    }
+    @JsonProperty("contents")
+    private List<String> contents;
 }
