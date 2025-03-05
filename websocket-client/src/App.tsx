@@ -3,20 +3,22 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import useWebSocket from "react-use-websocket";
 
+const MOCK_DATA = {
+  message: "SUCCESS",
+  contents: ["item1", "item2", "item3", "item4", "item5"],
+};
+
 function App() {
   const websocketUrl = import.meta.env.VITE_WEB_SOCKET_URL;
-  const helloSocketUrl = `${websocketUrl}/hello-ws`;
+  const helloSocketUrl = `${websocketUrl}/1/business-overview`;
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(
     helloSocketUrl,
     { shouldReconnect: () => true }
   );
 
-  console.log({ lastMessage, readyState });
-
   const handleSendMessage = () => {
-    console.log("entry function send message");
-    sendMessage("This is message from client");
+    sendMessage(JSON.stringify(MOCK_DATA));
   };
 
   return (
