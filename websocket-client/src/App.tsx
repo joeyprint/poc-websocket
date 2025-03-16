@@ -7,9 +7,14 @@ function App() {
   const websocketUrl = import.meta.env.VITE_WEB_SOCKET_URL;
   const helloSocketUrl = `${websocketUrl}/1/business-overview`;
 
-  const { lastMessage, readyState } = useWebSocket(helloSocketUrl, {
-    shouldReconnect: () => true,
-  });
+  const { lastMessage, readyState, getWebSocket } = useWebSocket(
+    helloSocketUrl,
+    {
+      shouldReconnect: () => true,
+    }
+  );
+
+  console.log("Logging Websocket Value", getWebSocket());
 
   return (
     <>
